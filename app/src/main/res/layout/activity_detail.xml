@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_detail"
+    android:orientation="vertical"
+    android:id="@+id/parentView"
+    tools:context=".ui.DetailActivity">
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/detailHolder"
+        android:layout_alignParentBottom="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="190dp"
+        android:background="@drawable/bg_list"
+        android:padding="20dp">
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/detailTitle"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/condiment"
+            android:textColor="#ffff"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:text="Title"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/detailDirector"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/detailTitle"
+            android:fontFamily="@font/condiment"
+            android:textColor="#ffff"
+            android:text="Director: downloading..."/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/detailProducer"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/detailDirector"
+            android:fontFamily="@font/condiment"
+            android:textColor="#ffff"
+            android:text="Producer: downloading"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/detailRelease"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/detailProducer"
+            android:fontFamily="@font/condiment"
+            android:textColor="#ffff"
+            android:text="Release date: downloading"/>
+        
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_below="@id/detailRelease"
+            android:padding="5dp"
+            android:scrollbars="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detailRelease"
+                android:id="@+id/detailDesc"
+                android:fontFamily="@font/condiment"
+                android:textColor="#ffff"
+                android:textAlignment="center"
+                android:textStyle="italic"
+                android:layout_marginTop="20dp"
+                android:layout_alignParentBottom="true"/>
+        </androidx.core.widget.NestedScrollView>
+        
+
+
+    </RelativeLayout>
+
+</RelativeLayout>
