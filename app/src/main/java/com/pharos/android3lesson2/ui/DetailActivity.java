@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pharos.android3lesson2.R;
+import com.pharos.android3lesson2.data.FilmsDao;
 import com.pharos.android3lesson2.data.RetrofitBuilder;
 import com.pharos.android3lesson2.models.Film;
 
@@ -20,14 +22,18 @@ import retrofit2.Response;
 public class DetailActivity extends AppCompatActivity {
     private String id;
     private View v;
-    private TextView txtTitle, txtDesc, txtDirector, txtProducer,txtRelease;
+    private TextView txtTitle, txtDesc, txtDirector, txtProducer, txtRelease;
+    private ImageView imgViewFavorite;
+    private Film film;
+    private FilmsDao dao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+        dao = App.instance.getDatabase().getFilmDao();
         init();
-        if (getIntent()!=null) getData();
+        if (getIntent() != null) getData();
         callRF();
     }
 
@@ -38,7 +44,8 @@ public class DetailActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<Film> call, Response<Film> response) {
                         v.setVisibility(View.VISIBLE);
-                        setData(response.body());
+                        if (response.isSuccessful())
+                            setData(response.body());
                     }
 
                     @Override
@@ -49,11 +56,20 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void setData(Film body) {
-txtTitle.setText(body.getTitle());
-txtDirector.setText(String.format("Director: "+body.getDirector()));
-txtProducer.setText(String.format("Producer: "+body.getProducer()));
-txtRelease.setText(String.format("Release date: "+body.getReleaseDate()));
-txtDesc.setText(body.getDescription());
+        dao.insert(body);
+        film = dao.getFilmById(body.getId());
+        txtTitle.setText(body.getTitle());
+        txtDirector.setText(String.format("Director: " + body.getDirector()));
+        txtProducer.setText(String.format("Producer: " + body.getProducer()));
+        txtRelease.setText(String.format("Release date: " + body.getReleaseDate()));
+        txtDesc.setText(body.getDescription());
+
+
+        if (film.isFavorite())
+            imgViewFavorite.setImageResource(R.drawable.ic_favorite);
+         else
+            imgViewFavorite.setImageResource(R.drawable.ic_favorite_border);
+
     }
 
     private void init() {
@@ -63,9 +79,23 @@ txtDesc.setText(body.getDescription());
         txtDirector = findViewById(R.id.detailDirector);
         txtProducer = findViewById(R.id.detailProducer);
         txtRelease = findViewById(R.id.detailRelease);
+        imgViewFavorite = findViewById(R.id.iv_favorite);
+
+
+
+        imgViewFavorite.setOnClickListener(v -> {
+            film.setFavorite(!film.isFavorite());
+
+            if (film.isFavorite())
+                imgViewFavorite.setImageResource(R.drawable.ic_favorite);
+            else
+                imgViewFavorite.setImageResource(R.drawable.ic_favorite_border);
+
+            dao.update(film);
+        });
     }
 
-    private void getData(){
+    private void getData() {
         id = getIntent().getStringExtra(MainActivity.KEY);
     }
 

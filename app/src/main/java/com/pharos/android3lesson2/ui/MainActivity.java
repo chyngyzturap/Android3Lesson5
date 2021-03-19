@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pharos.android3lesson2.R;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements FilmAdapter.OnCli
     public static final String KEY = "modelKey";
     private RecyclerView recyclerView;
     private FilmAdapter adapter;
+    private TextView txtFavorite;
 
 
     @Override
@@ -59,6 +61,11 @@ public class MainActivity extends AppCompatActivity implements FilmAdapter.OnCli
         adapter = new FilmAdapter();
         recyclerView.setAdapter(adapter);
         adapter.setClickListener(this);
+        txtFavorite = findViewById(R.id.txtFavorite);
+        txtFavorite.setOnClickListener(v -> {
+            Intent intent = new Intent(this, FavoriteActivity.class);
+            startActivity(intent);
+        });
     }
 
     @Override

@@ -20,24 +20,11 @@
         android:textSize="60sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/txtFavorite"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/condiment"
-        android:padding="5dp"
-        android:text="Favorites"
-        android:layout_below="@+id/txtList"
-        android:textAlignment="center"
-        android:textColor="#FFFFFF"
-        android:textSize="60sp"
-        android:textStyle="bold" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/txtFavorite"
+        android:layout_below="@id/txtList"
         android:layout_marginTop="10dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2" />

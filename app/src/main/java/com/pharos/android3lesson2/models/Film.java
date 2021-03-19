@@ -1,13 +1,21 @@
 package com.pharos.android3lesson2.models;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.List;
 
+@Entity
 public class Film implements Serializable {
+
+    @PrimaryKey
     @SerializedName("id")
+    @NonNull
     private String id;
 
     @SerializedName("title")
@@ -28,23 +36,18 @@ public class Film implements Serializable {
     @SerializedName("rt_score")
     private String rtScore;
 
-    @SerializedName("people")
-    private List<String> people = null;
-
-    @SerializedName("species")
-    private List<String> species = null;
-
-    @SerializedName("locations")
-    private List<String> locations = null;
-
-    @SerializedName("vehicles")
-    private List<String> vehicles = null;
-
     @SerializedName("url")
     private String url;
 
-    @SerializedName("length")
-    private Object length;
+    private boolean isFavorite = false;
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
 
     public String getId() {
         return id;
@@ -53,7 +56,6 @@ public class Film implements Serializable {
     public void setId(String id) {
         this.id = id;
     }
-
     public String getTitle() {
         return title;
     }
@@ -102,38 +104,6 @@ public class Film implements Serializable {
         this.rtScore = rtScore;
     }
 
-    public List<String> getPeople() {
-        return people;
-    }
-
-    public void setPeople(List<String> people) {
-        this.people = people;
-    }
-
-    public List<String> getSpecies() {
-        return species;
-    }
-
-    public void setSpecies(List<String> species) {
-        this.species = species;
-    }
-
-    public List<String> getLocations() {
-        return locations;
-    }
-
-    public void setLocations(List<String> locations) {
-        this.locations = locations;
-    }
-
-    public List<String> getVehicles() {
-        return vehicles;
-    }
-
-    public void setVehicles(List<String> vehicles) {
-        this.vehicles = vehicles;
-    }
-
     public String getUrl() {
         return url;
     }
@@ -142,11 +112,4 @@ public class Film implements Serializable {
         this.url = url;
     }
 
-    public Object getLength() {
-        return length;
-    }
-
-    public void setLength(Object length) {
-        this.length = length;
-    }
 }
